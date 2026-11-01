@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "board": "frdm-imx91s",
+  "os": "NXP Linux 6.6 / Yocto Scarthgap SPI-NAND component image",
+  "architecture": "aarch64",
+  "abi": "gnu",
+  "libc": "glibc",
+  "toolchain": {"cc": "aarch64-linux-gnu-gcc", "target_ldflags": "-static", "elf_machine": "AArch64"},
+  "startup": {"manager": "gar-target", "init": "bsp-owned", "application_root": "/opt/gar/apps"},
+  "bsp": {
+    "base_dtb": "imx91-11x11-frdm-imx91s.dtb",
+    "kernel_branch": "lf-6.6.y",
+    "uboot_branch": "lf_v2024.04",
+    "atf_branch": "lf_v2.8",
+    "mkimage_branch": "lf-6.6.3_1.0.0",
+    "nand_defconfig": "imx91_11x11_frdm_imx91s_spinand_defconfig",
+    "contract": "frdm-imx91s-spinand-v1"
+  },
+  "i2c": [{
+    "controller": "LPI2C4", "bus": 3, "device": "/dev/i2c-3",
+    "max_speed_hz": 100000, "logic_voltage_v": 3.3,
+    "pins": {"SDA": "3", "SCL": "5"},
+    "node": "/soc@0/bus@42000000/i2c@42540000",
+    "pinctrl_node": "/soc@0/bus@44000000/pinctrl@443c0000",
+    "pinmux": [[24, 456, 1020, 1, 0, 1073744798], [28, 460, 1016, 1, 0, 1073744798]]
+  }],
+  "rails": {
+    "exp-3v3": {"node": "/regulator-exp-3v3", "voltage_v": 3.3, "pins": [1, 17]},
+    "exp-5v": {"node": "/regulator-exp-5v", "voltage_v": 5, "pins": [2, 4]}
+  },
+  "uuu": {
+    "environment": {
+      "GAR_UUU_VERSION": "1.5.243",
+      "GAR_UUU_TRANSFER_TIMEOUT_MS": "30000",
+      "GAR_IMX91S_FASTBOOT_BUFFER": "0x82800000",
+      "GAR_UUU_TRANSFER_CHUNK_SIZE": "0x100000",
+      "GAR_IMX91S_INITRD_ADDR": "0x85000000",
+      "GAR_IMX91S_NAND_DEVICE": "spi-nand0"
+    },
+    "nand_bytes": 268435456,
+    "partitions": [
+      {"name": "bootloader", "mtd": 0, "size": 8388608, "env": "GAR_IMX91S_NAND_BOOTLOADER_MTD"},
+      {"name": "config", "mtd": 1, "size": 8388608, "env": "GAR_IMX91S_NAND_CONFIG_MTD"},
+      {"name": "kernel", "mtd": 2, "size": 37748736, "env": "GAR_IMX91S_NAND_KERNEL_MTD"},
+      {"name": "dtb", "mtd": 3, "size": 131072, "env": "GAR_IMX91S_NAND_DTB_MTD"},
+      {"name": "rootfs", "mtd": 4, "size": 213778432, "env": "GAR_IMX91S_NAND_ROOTFS_MTD"}
+    ],
+    "usb": {"rom": "1fc9:0159", "fastboot": "1fc9:0152", "data_connector": "USB1 J5", "console_connector": "J11", "console_baud": 115200},
+    "download_switch": "SW1[4-1]=0001"
+  },
+  "verification": {
+    "date": "2026-11-01",
+    "scope": "Extracted from the existing FRDM-IMX91S bring-up; no new physical qualification. I2C inventory and speed are a conservative subset, not the entire header. Binaries/EULA acceptance and live NAND confirmation are external.",
+    "sources": [
+      "https://www.nxp.com/design/design-center/development-boards-and-designs/FRDM-IMX91S",
+      "https://github.com/nxp-imx/linux-imx/blob/lf-6.6.y/arch/arm64/boot/dts/freescale/imx91-11x11-frdm-imx91s.dts",
+      "https://github.com/nxp-imx/linux-imx/blob/lf-6.6.y/arch/arm64/boot/dts/freescale/imx91-pinfunc.h"
+    ]
+  }
+}

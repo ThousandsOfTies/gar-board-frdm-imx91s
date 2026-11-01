@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "id": "frdm-imx91s",
+  "name": "NXP FRDM-IMX91S",
+  "soc": "NXP i.MX 91",
+  "target_id": "frdm-imx91s",
+  "profiles": {"nxp-linux-6.6-spinand": "profiles/nxp-linux-6.6-spinand.json"},
+  "documentation": "README.md"
+}
